@@ -41,7 +41,8 @@ class PublisherController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required'
+            'name' => 'required',
+            'slug' => 'required|string|unique:publishers,slug'
         ]);
 
         Publisher::create($request->all());
@@ -86,6 +87,7 @@ class PublisherController extends Controller
     {
         $request->validate([
             'name' => 'required',
+            'slug' => 'required|string|unique:publishers,slug'
         ]);
     
         $publisher = Publisher::find($id);

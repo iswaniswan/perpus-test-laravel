@@ -4,17 +4,9 @@
 
 <div class="d-flex justify-content-between">
     <h5 class="display-6">Daftar Penerbit</h5>
-    <a href="{{ route('publisher.create') }}">
-        <button type="button" class="btn btn-sm btn-outline-success p-3 btn-add-cat" 
-        data-bs-action="add">
-            <svg id="i-plus" xmlns="http://www.w3.org/2000/svg" 
-                viewBox="0 0 32 32" width="24" height="24" fill="none" 
-                stroke="currentcolor" stroke-linecap="round" 
-                stroke-linejoin="round" stroke-width="2">
-                <path d="M16 2 L16 30 M2 16 L30 16" />
-            </svg>
-        
-            <span class="px-3 align-bottom">Tambah</span> 
+    <a href="{{ route('publisher.create') }}" class="mt-auto">
+        <button type="button" class="btn btn-sm btn-outline-success px-3 py-1">
+            <i class="bi bi-plus-lg"></i> Tambah
         </button>            
     </a>
 
@@ -24,7 +16,7 @@
 <div class="mb-5"></div>
 @if ($message = Session::get('success'))
     <div class="alert alert-success">
-        <p>{{ $message }}</p>
+        <span>{{ $message }}</span>
     </div>
 @endif
 
@@ -37,23 +29,19 @@
         </tr>
     </thead>
     <tbody>
-        @foreach ($publishers as $index=>$publisher)
+        @foreach ($publishers as $publisher)
             <tr>
-                <th scope="row">{{ $index += 1 }}</th>
-                <td>{{ $publisher->name }}</td>
+                <th scope="col">{{ $loop->iteration }}</th>
+                <td scope="col">{{ $publisher->name }}</td>
                 <td>
-                    <form action="{{ route('publisher.destroy', $publisher->id) }}" method="POST">
-                        <a class="btn btn-sm btn-outline-warning mx-2" href="{{ route('publisher.edit', $publisher->id) }}">
-                            <svg id="i-edit" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                                <path d="M30 7 L25 2 5 22 3 29 10 27 Z M21 6 L26 11 Z M5 22 L10 27 Z" />
-                            </svg>
+                    <form action="{{ route('publisher.destroy', $publisher->id) }}" method="POST" class="d-inline">
+                        <a class="badge bg-warning" href="{{ route('publisher.edit', $publisher->id) }}">
+                            <i class="bi bi-pencil-square"></i>
                         </a> 
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-outline-danger mx-auto" >
-                            <svg id="i-trash" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                                <path d="M28 6 L6 6 8 30 24 30 26 6 4 6 M16 12 L16 24 M21 12 L20 24 M11 12 L12 24 M12 6 L13 2 19 2 20 6" />
-                            </svg>       
+                        <button type="submit" class="badge bg-danger border-0" >
+                            <i class="bi bi-x-circle"></i>     
                         </button>   
                     </form>
                 </td>

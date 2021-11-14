@@ -25,13 +25,15 @@
                 </a>
             </div>
 
-            <div class="modal-body">                
-                <input type="hidden" class="form-control" name="action" id="category_action" value="add">
-                <input type="hidden" class="form-control" name="id" id="category_id" value="">
+            <div class="modal-body">
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Nama</label>
-                    <input type="text" class="form-control" name="name" id="category_name" value="{{ $category->name }}">
-                </div>                    
+                    <label for="name" class="form-label">Nama</label>
+                    <input type="text" class="form-control" name="name" id="name" value="{{ $category->name }}" required>
+                </div>  
+                <div class="mb-3">
+                    <label for="slug" class="form-label">Slug</label>
+                    <input type="text" class="form-control" name="name" id="slug" value="{{ $category->slug }}" required>
+                </div>                   
             </div>
 
             <div class="modal-footer d-flex justify-content-between"> 

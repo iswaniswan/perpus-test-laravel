@@ -11,6 +11,7 @@
     <link href="{{ URL::to('/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ URL::to('css/dataTables.bootstrap5.min.css') }}" rel="stylesheet">
     <link href="{{ URL::to('css/styles.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css">
 
     <!-- JS -->
     <script src="{{ URL::to('js/jquery-3.5.1.js') }}"></script>
@@ -26,16 +27,16 @@
     <div class="row mb-5">
         <ul class="nav nav-tabs">
             <li class="nav-item">
-                <a class="nav-link {{ $title == 'book' ? 'active' : '' }}" aria-current="page" href="/">Buku</a>
+                <a class="nav-link {{ Request::is('book*') ? 'active' : '' }}" aria-current="page" href="/">Buku</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ $title == 'category' ? 'active' : '' }}" href="/category">Kategori</a>
+                <a class="nav-link {{ Request::is('category*') ? 'active' : '' }}" href="/category">Kategori</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ $title == 'author' ? 'active' : '' }}" href="/author">Penulis</a>
+                <a class="nav-link {{ Request::is('author*') ? 'active' : '' }}" href="/author">Penulis</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ $title == 'publisher' ? 'active' : '' }}" href="/publisher">Penerbit</a>
+                <a class="nav-link {{ Request::is('publisher*') ? 'active' : '' }}" href="/publisher">Penerbit</a>
             </li>
         </ul>
     </div>

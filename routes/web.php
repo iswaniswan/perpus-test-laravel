@@ -30,7 +30,9 @@ use App\Http\Controllers\PublisherController;
 // Route::get('/author', [AuthorController::class, 'index']);
 
 // Route::get('/publisher', [PublisherController::class, 'index']);
-Route::resource('/', BookController::class);
+Route::get('/', function() {
+    return redirect('book');
+});
 Route::resource('book', BookController::class);
 Route::resource('category', CategoryController::class);
 Route::resource('author', AuthorController::class);

@@ -2,7 +2,6 @@
 
 @section('content')
 
-
 <div class="row mb-5">
     <div class="col-12">   
         @if ($errors->any())
@@ -16,6 +15,12 @@
             </div>
         @endif 
 
+        @if ($message = Session::get('error'))
+            <div class="alert alert-danger">
+                <p>{{ $message }}</p>
+            </div> 
+        @endif
+
         <form id="form_book" action="{{ route('book.store') }}" method="POST">
             @csrf
 
@@ -26,53 +31,62 @@
                 </a>
             </div>
 
-            <div class="modal-body">                
-                <input type="hidden" class="form-control" name="action" id="book_action" value="add">
-                <input type="hidden" class="form-control" name="id" id="book_id" value="">
-
+            <div class="modal-body">
                 <div class="mb-3">
                     <label for="book_title" class="form-label">Judul</label>
-                    <input type="text" class="form-control" name="title" id="book_title" value="">
+                    <input type="text" class="form-control" name="title" id="book_title" value="{{ old('title') }}" required>
                 </div>
 
                 <div class="mb-3">
                     <label for="book_synopsis" class="form-label">Sinopsis</label>
-                    <input type="text" class="form-control" name="synopsis" id="book_synopsis" value="">
+                    <input type="text" class="form-control" name="synopsis" id="book_synopsis" value="{{ old('synopsis') }}" required>
                 </div>
 
                 <div class="mb-3">
                     <label for="book_author" class="form-label">Penulis</label>
-                    <select class="form-select" name="author_id" id="book_author" value="">
-                        <option value="0">-</option>
+                    <select class="form-select" name="author_id" id="book_author" required>
+                        <option value="">-</option>
                         @foreach ($authors as $index=>$author)
-                            <option value="{{ $author->id }}">{{ $author->name }}</option>
+                            <option value="{{ $author->id }}"
+                                @if ($author->id == old('author_id'))
+                                    {{'selected="selected"'}}                                    
+                                @endif
+                                >{{ $author->name }}</option>
                         @endforeach                       
                     </select>
                 </div>
 
                 <div class="mb-3">
                     <label for="book_category" class="form-label">Kategori</label>
-                    <select class="form-select" name="category_id" id="book_category" value="">
-                        <option value="0">-</option>
+                    <select class="form-select" name="category_id" id="book_category" required>
+                        <option value="">-</option>
                         @foreach ($categories as $index=>$category)
-                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            <option value="{{ $category->id }}"
+                                @if ($category->id == old('category_id'))
+                                    {{ 'selected="selected"' }}
+                                @endif
+                                >{{ $category->name }}</option>
                         @endforeach
                     </select>
                 </div>
 
                 <div class="mb-3">
                     <label for="book_publisher" class="form-label">Penerbit</label>
-                    <select class="form-select" name="publisher_id" id="book_publisher" value="">
-                        <option value="0">-</option>
+                    <select class="form-select" name="publisher_id" id="book_publisher" required>
+                        <option value="">-</option>
                         @foreach ($publishers as $index=>$publisher)
-                            <option value="{{ $publisher->id }}">{{ $publisher->name }}</option>
+                            <option value="{{ $publisher->id }}"
+                                @if ($publisher->id == old('publisher_id'))
+                                    {{ 'selected="selected"' }}
+                                @endif
+                                >{{ $publisher->name }}</option>
                         @endforeach
                     </select>
                 </div>
 
                 <div class="mb-3">
                     <label for="book_year" class="form-label">Tahun</label>
-                    <input type="number" class="form-control" name="year" id="book_release_year" value="">
+                    <input type="number" class="form-control" name="year" id="book_year" value="{{ old('year') }}" required>
                 </div>
             </div>
             

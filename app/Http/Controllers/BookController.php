@@ -7,20 +7,21 @@ use App\Models\Book;
 use App\Models\Category;
 use App\Models\Author;
 use App\Models\Publisher;
-
+use Illuminate\Support\Str;
 
 class BookController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Book $book)
+    public function index(Book $books)
     {
         return view('book.index', [
             'title' => 'book',
-            'books' => $book->all()
+            'books' => $books->latest()->get()
         ]);
     }
 
@@ -59,11 +60,23 @@ class BookController extends Controller
             'publisher_id' => 'required',
             'year' => 'required'
         ]);
+        
+        // check if book with the same title and author already exists
+        $exists = Book::where('title', $request['title'])
+            ->where('author_id', $request['author_id'])
+            ->get();          
+
+        if($exists->count() >= 1) 
+        {
+            return redirect()->route('book.create')
+                                ->withInput()
+                                ->with('error', 'The book with the same author, already exist');
+        }
 
         Book::create($request->all());
 
         return redirect()->route('book.index')
-                        ->with('success','Data buku berhasil ditambahkan.');
+                            ->with('success','Data buku berhasil ditambahkan.');
     }
 
     /**

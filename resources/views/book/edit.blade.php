@@ -26,9 +26,7 @@
                 </a>
             </div>
 
-            <div class="modal-body">                
-                <input type="hidden" class="form-control" name="action" id="book_action" value="add">
-                <input type="hidden" class="form-control" name="id" id="book_id" value="{{ $book->id }}">
+            <div class="modal-body">
 
                 <div class="mb-3">
                     <label for="book_title" class="form-label">Judul</label>
@@ -42,9 +40,9 @@
 
                 <div class="mb-3">
                     <label for="book_author" class="form-label">Penulis</label>                    
-                    <select class="form-select" name="author_id" id="book_author" value="">
+                    <select class="form-select" name="author_id" id="book_author" required>
                         <option value="0">-</option>
-                        @foreach ($authors as $index=>$author)
+                        @foreach ($authors as $author)
                             <option value="{{ $author->id }}" 
                             @if ($book->author->name == $author->name) 
                             {{'selected="selected"'}}
@@ -57,11 +55,11 @@
 
                 <div class="mb-3">
                     <label for="book_category" class="form-label">Kategori</label>
-                    <select class="form-select" name="category_id" id="book_category" value="">
+                    <select class="form-select" name="category_id" id="book_category" required>
                         <option value="0">-</option>
-                        @foreach ($categories as $index=>$category)
+                        @foreach ($categories as $category)
                             <option value="{{ $category->id }}"
-                            @if ($book->category->name == $category->name)
+                            @if (($book->category ?? false) && $book->category->name == $category->name)
                             {{'selected="selected"'}}
                             @endif
                             >
@@ -72,9 +70,9 @@
 
                 <div class="mb-3">
                     <label for="book_publisher" class="form-label">Penerbit</label>
-                    <select class="form-select" name="publisher_id" id="book_publisher" value="">
+                    <select class="form-select" name="publisher_id" id="book_publisher" required>
                         <option value="0">-</option>
-                        @foreach ($publishers as $index=>$publisher)
+                        @foreach ($publishers as $publisher)
                             <option value="{{ $publisher->id }}"
                             @if ($book->publisher->name == $publisher->name)
                             {{'selected="selected"'}}
@@ -86,7 +84,7 @@
 
                 <div class="mb-3">
                     <label for="book_year" class="form-label">Tahun</label>
-                    <input type="number" class="form-control" name="year" id="year" value="{{$book->year}}">
+                    <input type="number" class="form-control" name="year" id="year" value="{{$book->year}}" required>
                 </div>
             </div>
             

@@ -28,7 +28,7 @@ class AuthorController extends Controller
     public function create()
     {
         return view('author.create', [
-            'title' => 'author'
+            'title' => 'author',
         ]);
     }
 
@@ -41,7 +41,8 @@ class AuthorController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required'
+            'name' => 'required',
+            'slug' => 'required|string|unique:authors,slug'
         ]);
 
         Author::create($request->all());
@@ -86,6 +87,7 @@ class AuthorController extends Controller
     {
         $request->validate([
             'name' => 'required',
+            'slug' => 'required|string|unique:authors,slug'
         ]);
     
         $author = Author::find($id);
